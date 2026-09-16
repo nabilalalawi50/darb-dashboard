@@ -1,318 +1,165 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>منصّة تنسيق الزيارات الميدانية - درب</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-/* =========================================================
-   RESET & TOKENS
-   ========================================================= */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{font-size:16px;}
-body{
-  font-family:'Tajawal','Segoe UI',Tahoma,Arial,sans-serif;
-  background:#0f172a;
-  color:#f8fafc;
-  min-height:100vh;
-  overflow-x:hidden;
-}
-
-:root{
-  --brand-red: #e1251b;
-  --bg-dark: #0f172a;
-  --card-bg: rgba(30, 41, 59, 0.7);
-  --card-border: rgba(255, 255, 255, 0.1);
-  --glass-blur: 16px;
-  --radius-lg: 16px;
-  --radius-md: 10px;
-  --text-muted: #94a3b8;
-}
-
-/* =========================================================
-   TOP HEADER NAVIGATION
-   ========================================================= */
-.app-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(var(--glass-blur));
-  border-bottom: 1px solid var(--card-border);
-  padding: 12px 24px;
-}
-
-.header-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.brand-section {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.brand-logo {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, var(--brand-red), #962d26);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(225, 37, 27, 0.3);
-}
-
-.brand-title {
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: #fff;
-  line-height: 1.1;
-}
-
-.brand-subtitle {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
-/* Navigation Tabs */
-.nav-tabs {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(30, 41, 59, 0.5);
-  padding: 4px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--card-border);
-}
-
-.nav-tab-btn {
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  padding: 8px 16px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.nav-tab-btn:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.nav-tab-btn.is-active {
-  background: var(--brand-red);
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(225, 37, 27, 0.4);
-}
-
-.btn-primary {
-  background: var(--brand-red);
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: var(--radius-md);
-  font-weight: 700;
-  font-size: 0.85rem;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(225, 37, 27, 0.3);
-}
-
-/* =========================================================
-   MAIN CONTENT & PAGES CONTROL
-   ========================================================= */
-.main-container {
-  max-width: 1400px;
-  margin: 24px auto;
-  padding: 0 24px;
-}
-
-/* التحكم بظهور وإخفاء الصفحات */
-.tab-page {
-  display: none;
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-.tab-page.active-page {
-  display: block;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.kpi-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  backdrop-filter: blur(var(--glass-blur));
-  border-radius: var(--radius-lg);
-  padding: 20px;
-}
-
-.kpi-title { font-size: 0.85rem; color: var(--text-muted); }
-.kpi-num { font-size: 1.8rem; font-weight: 800; font-family: 'IBM Plex Mono', monospace; margin-top: 8px;}
-
-.content-row {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 20px;
-}
-
-.panel {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  backdrop-filter: blur(var(--glass-blur));
-  border-radius: var(--radius-lg);
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
-.panel-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-
-@media (max-width: 1024px) {
-  .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
-  .content-row { grid-template-columns: 1fr; }
-  .header-container { flex-wrap: wrap; }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>درب — منصّة تنسيق الزيارات الميدانية</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="theme-day">
 
-<header class="app-header">
-  <div class="header-container">
-    <div class="brand-section">
-      <div class="brand-logo">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 11l9-7 9 7"/><path d="M5 10v9a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1v-9"/></svg>
+  <!-- الخلفية التفاعلية Ambient Background -->
+  <div class="ambient" aria-hidden="true">
+    <div class="ambient-orb o1"></div>
+    <div class="ambient-orb o2"></div>
+    <div class="ambient-orb o3"></div>
+  </div>
+
+  <div class="app-shell">
+    <!-- الشريط الجانبي Sidebar -->
+    <aside class="sidebar">
+      <div class="horizon-wrap" id="horizonWrap">
+        <!-- SVG أفق سماء عُمان التفاعلي حسب الوقت -->
+        <svg class="horizon-svg" viewBox="0 0 272 104" preserveAspectRatio="none">
+          <circle class="sun-body" cx="210" cy="35" r="16" />
+          <circle class="sun-glow" cx="210" cy="35" r="28" />
+          <path class="ridge-back" d="M0 104 L0 70 Q 60 50, 130 75 T 272 65 L 272 104 Z" />
+          <path class="ridge-front" d="M0 104 L0 82 Q 80 65, 160 88 T 272 78 L 272 104 Z" />
+        </svg>
       </div>
-      <div>
-        <div class="brand-title">درب</div>
-        <div class="brand-subtitle">تنسيق الزيارات الميدانية</div>
+
+      <div class="sidebar-brand">
+        <div class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7"/><path d="M5 10v9a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1v-9"/></svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">درب</span>
+          <span class="brand-tag">تنسيق الزيارات الميدانية</span>
+        </div>
       </div>
-    </div>
 
-    <!-- أزرار التنقل مع ربطها بالأقسام عبر data-tab -->
-    <nav class="nav-tabs">
-      <button class="nav-tab-btn is-active" data-tab="home">الرئيسية</button>
-      <button class="nav-tab-btn" data-tab="calendar">التقويم</button>
-      <button class="nav-tab-btn" data-tab="archive">أرشيف الزيارات</button>
-      <button class="nav-tab-btn" data-tab="reports">اعتماد التقارير</button>
-      <button class="nav-tab-btn" data-tab="directory">دليل الشركات</button>
-      <button class="nav-tab-btn" data-tab="team">إدارة الفريق</button>
-    </nav>
+      <nav class="sidebar-nav">
+        <button class="nav-btn is-active" data-page="home" onclick="navigateTo('home')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7"/><path d="M5 10v9a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1v-9"/></svg>
+          <span>الرئيسية</span>
+        </button>
+        <button class="nav-btn" data-page="calendar" onclick="navigateTo('calendar')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          <span>التقويم</span>
+        </button>
+        <button class="nav-btn" data-page="archive" onclick="navigateTo('archive')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M3 7l2-4h14l2 4M10 12h4"/></svg>
+          <span>أرشيف الزيارات</span>
+        </button>
+        <button class="nav-btn" data-page="approval" onclick="navigateTo('approval')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+          <span>اعتماد التقارير</span>
+          <span class="nav-badge" id="approvalBadge">0</span>
+        </button>
+        <button class="nav-btn" data-page="companies" onclick="navigateTo('companies')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 7h1M14 7h1M9 11h1M14 11h1M9 15h1M14 15h1"/></svg>
+          <span>دليل الشركات</span>
+        </button>
+        <button class="nav-btn" data-page="team" onclick="navigateTo('team')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          <span>إدارة الفريق</span>
+        </button>
+      </nav>
 
-    <div class="header-actions">
-      <button class="btn-primary" onclick="alert('فتح نموذج إضافة زيارة جديدة')">+ زيارة جديدة</button>
+      <div class="sidebar-foot">
+        <div class="whoami">
+          <label for="userRoleSelect">الصفة الحالية</label>
+          <select id="userRoleSelect" onchange="switchRole(this.value)">
+            <option value="lead">رئيس الفريق</option>
+            <option value="member">عضو فريق</option>
+            <option value="auditor">مراقب / مدقق</option>
+          </select>
+        </div>
+        <div class="sync-pill">
+          <span class="sync-dot"></span>
+          <span>متزامن مع السحابة</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- منطقة المحتوى الرئيسية Main Column -->
+    <div class="main-col">
+      <header class="topbar">
+        <div>
+          <h1 class="topbar-title" id="pageTitle">الرئيسية</h1>
+          <p class="topbar-sub" id="pageSubtitle">نظرة عامة على أداء الزيارات الميدانية للفريق</p>
+        </div>
+        <div class="topbar-actions">
+          <div class="greeting-pill" id="greetingPill">مرحباً بك، مهندس</div>
+          <button class="btn btn-primary" onclick="openNewVisitModal()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            زيارة جديدة
+          </button>
+        </div>
+      </header>
+
+      <!-- الصفحات التفاعلية -->
+      <main class="page" id="page-home">
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <div class="kpi-value" id="kpiScheduled">0</div>
+            <div class="kpi-label">زيارات مجدولة</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+            <div class="kpi-value" id="kpiCompleted">0</div>
+            <div class="kpi-label">مكتملة هذا الشهر</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"/></svg></div>
+            <div class="kpi-value" id="kpiFactories">0</div>
+            <div class="kpi-label">منشأة تم استهدافها</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">جدول الزيارات القادمة</span>
+          </div>
+          <div class="panel-body">
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>كود الزيرة</th>
+                    <th>التاريخ</th>
+                    <th>المحافظة / الولاية</th>
+                    <th>عدد المصانع</th>
+                    <th>الحالة</th>
+                    <th>الإجراءات</th>
+                  </tr>
+                </thead>
+                <tbody id="visitsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <main class="page" id="page-calendar" hidden>
+        <div class="panel">
+          <div class="panel-body">
+            <div id="calendarContainer"></div>
+          </div>
+        </div>
+      </main>
+
+      <main class="page" id="page-archive" hidden></main>
+      <main class="page" id="page-approval" hidden></main>
+      <main class="page" id="page-companies" hidden></main>
+      <main class="page" id="page-team" hidden></main>
     </div>
   </div>
-</header>
 
-<main class="main-container">
-
-  <!-- صفحة الرئيسية -->
-  <section id="home" class="tab-page active-page">
-    <div class="dashboard-grid">
-      <div class="kpi-card"><div class="kpi-title">إجمالي الزيارات</div><div class="kpi-num">48</div></div>
-      <div class="kpi-card"><div class="kpi-title">الزيارات المكتملة</div><div class="kpi-num">32</div></div>
-      <div class="kpi-card"><div class="kpi-title">قيد الانتظار</div><div class="kpi-num">11</div></div>
-      <div class="kpi-card"><div class="kpi-title">نسبة الإنجاز</div><div class="kpi-num">66%</div></div>
-    </div>
-    <div class="content-row">
-      <div class="panel">
-        <div class="panel-title">جدول الزيارات القادمة</div>
-        <p style="color: var(--text-muted);">لا توجد زيارات مجدولة لهذا اليوم.</p>
-      </div>
-      <div class="panel">
-        <div class="panel-title">حالة التقارير</div>
-        <p style="color: var(--text-muted);">جميع التقارير معتمدة حتى الآن.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- صفحة التقويم -->
-  <section id="calendar" class="tab-page">
-    <div class="panel">
-      <div class="panel-title">تقويم الزيارات الميدانية</div>
-      <p style="color: var(--text-muted);">استعرض الزيارات المجدولة خلال الشهر الحالي والمقبل.</p>
-    </div>
-  </section>
-
-  <!-- صفحة أرشيف الزيارات -->
-  <section id="archive" class="tab-page">
-    <div class="panel">
-      <div class="panel-title">أرشيف الزيارات السابقة</div>
-      <p style="color: var(--text-muted);">قائمة بجميع الزيارات الميدانية التي تم تنفيذها سابقاً.</p>
-    </div>
-  </section>
-
-  <!-- صفحة اعتماد التقارير -->
-  <section id="reports" class="tab-page">
-    <div class="panel">
-      <div class="panel-title">مركز اعتماد التقارير</div>
-      <p style="color: var(--text-muted);">مراجعة وتوثيق التقارير الفنية المرفوعة من المفتشين.</p>
-    </div>
-  </section>
-
-  <!-- صفحة دليل الشركات -->
-  <section id="directory" class="tab-page">
-    <div class="panel">
-      <div class="panel-title">دليل المنشآت والشركات</div>
-      <p style="color: var(--text-muted);">بيانات الاتصال والمواقع والملاحظات الخاصة بالشركات.</p>
-    </div>
-  </section>
-
-  <!-- صفحة إدارة الفريق -->
-  <section id="team" class="tab-page">
-    <div class="panel">
-      <div class="panel-title">إدارة فريق التفتيش</div>
-      <p style="color: var(--text-muted);">توزيع أدوار فرق العمل وتحديد خطط السير.</p>
-    </div>
-  </section>
-
-</main>
-
-<script>
-// كود الجافاسكربت للتنقل بين التبويبات
-document.querySelectorAll('.nav-tab-btn').forEach(button => {
-  button.addEventListener('click', () => {
-    const targetTab = button.getAttribute('data-tab');
-
-    // 1. تحديث شكل الأزرار
-    document.querySelectorAll('.nav-tab-btn').forEach(btn => btn.classList.remove('is-active'));
-    button.classList.add('is-active');
-
-    // 2. إخفاء وإظهار الصفحات
-    document.querySelectorAll('.tab-page').forEach(page => page.classList.remove('active-page'));
-    const activeSection = document.getElementById(targetTab);
-    if (activeSection) {
-      activeSection.classList.add('active-page');
-    }
-  });
-});
-</script>
-
+  <script src="app.js"></script>
 </body>
 </html>
