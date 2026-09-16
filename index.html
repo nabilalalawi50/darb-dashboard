@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>منصّة تنسيق الزيارات الميدانية</title>
+<title>منصّة تنسيق الزيارات الميدانية - درب</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -33,7 +33,7 @@ body{
 }
 
 /* =========================================================
-   TOP HEADER NAVIGATION (مقتبس من تصميم الصورة)
+   TOP HEADER NAVIGATION
    ========================================================= */
 .app-header {
   position: sticky;
@@ -105,9 +105,6 @@ body{
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
 .nav-tab-btn:hover {
@@ -121,12 +118,6 @@ body{
   box-shadow: 0 2px 8px rgba(225, 37, 27, 0.4);
 }
 
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
 .btn-primary {
   background: var(--brand-red);
   color: #fff;
@@ -136,19 +127,31 @@ body{
   font-weight: 700;
   font-size: 0.85rem;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
   box-shadow: 0 4px 12px rgba(225, 37, 27, 0.3);
 }
 
 /* =========================================================
-   MAIN CONTENT GRID AREA
+   MAIN CONTENT & PAGES CONTROL
    ========================================================= */
 .main-container {
   max-width: 1400px;
   margin: 24px auto;
   padding: 0 24px;
+}
+
+/* التحكم بظهور وإخفاء الصفحات */
+.tab-page {
+  display: none;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.tab-page.active-page {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .dashboard-grid {
@@ -164,28 +167,10 @@ body{
   backdrop-filter: blur(var(--glass-blur));
   border-radius: var(--radius-lg);
   padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
 }
 
-.kpi-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.kpi-title {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-.kpi-num {
-  font-size: 1.8rem;
-  font-weight: 800;
-  font-family: 'IBM Plex Mono', monospace;
-  color: #fff;
-}
+.kpi-title { font-size: 0.85rem; color: var(--text-muted); }
+.kpi-num { font-size: 1.8rem; font-weight: 800; font-family: 'IBM Plex Mono', monospace; margin-top: 8px;}
 
 .content-row {
   display: grid;
@@ -199,15 +184,13 @@ body{
   backdrop-filter: blur(var(--glass-blur));
   border-radius: var(--radius-lg);
   padding: 20px;
+  margin-bottom: 20px;
 }
 
 .panel-title {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 700;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  margin-bottom: 12px;
 }
 
 @media (max-width: 1024px) {
@@ -221,7 +204,6 @@ body{
 
 <header class="app-header">
   <div class="header-container">
-    <!-- Brand -->
     <div class="brand-section">
       <div class="brand-logo">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 11l9-7 9 7"/><path d="M5 10v9a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1v-9"/></svg>
@@ -232,64 +214,105 @@ body{
       </div>
     </div>
 
-    <!-- Navigation Bar -->
+    <!-- أزرار التنقل مع ربطها بالأقسام عبر data-tab -->
     <nav class="nav-tabs">
-      <button class="nav-tab-btn is-active">الرئيسية</button>
-      <button class="nav-tab-btn">التقويم</button>
-      <button class="nav-tab-btn">أرشيف الزيارات</button>
-      <button class="nav-tab-btn">اعتماد التقارير</button>
-      <button class="nav-tab-btn">دليل الشركات</button>
-      <button class="nav-tab-btn">إدارة الفريق</button>
+      <button class="nav-tab-btn is-active" data-tab="home">الرئيسية</button>
+      <button class="nav-tab-btn" data-tab="calendar">التقويم</button>
+      <button class="nav-tab-btn" data-tab="archive">أرشيف الزيارات</button>
+      <button class="nav-tab-btn" data-tab="reports">اعتماد التقارير</button>
+      <button class="nav-tab-btn" data-tab="directory">دليل الشركات</button>
+      <button class="nav-tab-btn" data-tab="team">إدارة الفريق</button>
     </nav>
 
-    <!-- Topbar Actions -->
     <div class="header-actions">
-      <button class="btn-primary">+ زيارة جديدة</button>
+      <button class="btn-primary" onclick="alert('فتح نموذج إضافة زيارة جديدة')">+ زيارة جديدة</button>
     </div>
   </div>
 </header>
 
 <main class="main-container">
-  <!-- KPI Grid -->
-  <div class="dashboard-grid">
-    <div class="kpi-card">
-      <div class="kpi-header">
-        <span class="kpi-title">إجمالي الزيارات</span>
-      </div>
-      <div class="kpi-num">48</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-header">
-        <span class="kpi-title">الزيارات المكتملة</span>
-      </div>
-      <div class="kpi-num">32</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-header">
-        <span class="kpi-title">قيد الانتظار</span>
-      </div>
-      <div class="kpi-num">11</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-header">
-        <span class="kpi-title">نسبة الإنجاز</span>
-      </div>
-      <div class="kpi-num">66%</div>
-    </div>
-  </div>
 
-  <!-- Panels Row -->
-  <div class="content-row">
-    <div class="panel">
-      <div class="panel-title">جدول الزيارات القادمة</div>
-      <p style="color: var(--text-muted); font-size: 0.9rem;">لا توجد زيارات مجدولة لهذا اليوم.</p>
+  <!-- صفحة الرئيسية -->
+  <section id="home" class="tab-page active-page">
+    <div class="dashboard-grid">
+      <div class="kpi-card"><div class="kpi-title">إجمالي الزيارات</div><div class="kpi-num">48</div></div>
+      <div class="kpi-card"><div class="kpi-title">الزيارات المكتملة</div><div class="kpi-num">32</div></div>
+      <div class="kpi-card"><div class="kpi-title">قيد الانتظار</div><div class="kpi-num">11</div></div>
+      <div class="kpi-card"><div class="kpi-title">نسبة الإنجاز</div><div class="kpi-num">66%</div></div>
     </div>
-    <div class="panel">
-      <div class="panel-title">حالة التقارير</div>
-      <p style="color: var(--text-muted); font-size: 0.9rem;">جميع التقارير معتمدة حتى الآن.</p>
+    <div class="content-row">
+      <div class="panel">
+        <div class="panel-title">جدول الزيارات القادمة</div>
+        <p style="color: var(--text-muted);">لا توجد زيارات مجدولة لهذا اليوم.</p>
+      </div>
+      <div class="panel">
+        <div class="panel-title">حالة التقارير</div>
+        <p style="color: var(--text-muted);">جميع التقارير معتمدة حتى الآن.</p>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- صفحة التقويم -->
+  <section id="calendar" class="tab-page">
+    <div class="panel">
+      <div class="panel-title">تقويم الزيارات الميدانية</div>
+      <p style="color: var(--text-muted);">استعرض الزيارات المجدولة خلال الشهر الحالي والمقبل.</p>
+    </div>
+  </section>
+
+  <!-- صفحة أرشيف الزيارات -->
+  <section id="archive" class="tab-page">
+    <div class="panel">
+      <div class="panel-title">أرشيف الزيارات السابقة</div>
+      <p style="color: var(--text-muted);">قائمة بجميع الزيارات الميدانية التي تم تنفيذها سابقاً.</p>
+    </div>
+  </section>
+
+  <!-- صفحة اعتماد التقارير -->
+  <section id="reports" class="tab-page">
+    <div class="panel">
+      <div class="panel-title">مركز اعتماد التقارير</div>
+      <p style="color: var(--text-muted);">مراجعة وتوثيق التقارير الفنية المرفوعة من المفتشين.</p>
+    </div>
+  </section>
+
+  <!-- صفحة دليل الشركات -->
+  <section id="directory" class="tab-page">
+    <div class="panel">
+      <div class="panel-title">دليل المنشآت والشركات</div>
+      <p style="color: var(--text-muted);">بيانات الاتصال والمواقع والملاحظات الخاصة بالشركات.</p>
+    </div>
+  </section>
+
+  <!-- صفحة إدارة الفريق -->
+  <section id="team" class="tab-page">
+    <div class="panel">
+      <div class="panel-title">إدارة فريق التفتيش</div>
+      <p style="color: var(--text-muted);">توزيع أدوار فرق العمل وتحديد خطط السير.</p>
+    </div>
+  </section>
+
 </main>
+
+<script>
+// كود الجافاسكربت للتنقل بين التبويبات
+document.querySelectorAll('.nav-tab-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    const targetTab = button.getAttribute('data-tab');
+
+    // 1. تحديث شكل الأزرار
+    document.querySelectorAll('.nav-tab-btn').forEach(btn => btn.classList.remove('is-active'));
+    button.classList.add('is-active');
+
+    // 2. إخفاء وإظهار الصفحات
+    document.querySelectorAll('.tab-page').forEach(page => page.classList.remove('active-page'));
+    const activeSection = document.getElementById(targetTab);
+    if (activeSection) {
+      activeSection.classList.add('active-page');
+    }
+  });
+});
+</script>
 
 </body>
 </html>
